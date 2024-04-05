@@ -12,9 +12,11 @@ export default function Home() {
   const botKey = Deno.env.get("BOT_KEY") || '';
   const storage = new StorageDenoKV();
 
+
+
   return (
     <div class="px-4 py-8 mx-auto bg-[#86efac]">
-      <Login API_HASH={apiHash} API_ID={apiId} BOT_KEY={botKey} storage={storage} />
+      <Login />
     </div>
   );
 }
