@@ -1,10 +1,12 @@
 import {Client} from "https://deno.land/x/mtkruto@0.1.200/client/4_client.ts";
 import {StorageLocalStorage} from "https://deno.land/x/mtkruto@0.1.200/storage/2_storage_local_storage.ts";
+import { StorageDenoKV } from "https://deno.land/x/mtkruto@0.1.200/storage/1_storage_deno_kv.ts";
 
 interface Props {
   API_ID: number | null,
   API_HASH: string,
-  BOT_KEY: string
+  BOT_KEY: string,
+  storage: StorageDenoKV
 }
 
 declare global {
@@ -12,9 +14,10 @@ declare global {
     handleCredentialResponse?: any;
   }
 }
-export default function Login({ BOT_KEY, API_HASH, API_ID }: Props) {
+export default function Login({ BOT_KEY, API_HASH, API_ID, storage }: Props) {
 
-  const client = new Client(new StorageLocalStorage("client"), API_ID, API_HASH);
+
+  const client = new Client(storage, API_ID, API_HASH);
 
   const login = async function () {
     await client.start(BOT_KEY);
